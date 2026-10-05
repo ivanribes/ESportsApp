@@ -1,6 +1,5 @@
 package com.example.esportsapp
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -18,46 +17,53 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.esportsapp.ui.theme.ESportsAppTheme
+
+val Fondo = Color(0xFF10131A)
+val FondoJugador = Color(0xFF1B1F2A)
+val Azul = Color(0xFF5865F2)
+val TextoPrincipal = Color(0xFFF2F2F2)
+val TextoSecundario = Color(0xFFB8BAC4)
+val Separador = Color(0xFF34394A)
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         setContent {
             PantallaPrincipal()
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun PantallaPrincipal() {
 
-    Column( modifier = Modifier
-        .fillMaxSize()
-        .background(color = Color.Cyan)
-        .statusBarsPadding()
-        .padding(20.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Fondo)
+            .statusBarsPadding()
+            .padding(20.dp)
+    ) {
 
         Text(
             text = "TEAM TITANS",
@@ -66,67 +72,58 @@ fun PantallaPrincipal() {
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
-                .padding(top = 20.dp, bottom = 20.dp)
+                .padding(top = 20.dp, bottom = 25.dp)
         )
 
-        Row(modifier = Modifier.fillMaxWidth().padding(vertical = 30.dp).background(color = Color.Blue)) {
-            Text(
-                text = "",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f),
-                color = Color.White
+        Jugador(
+            nombre = "Ivan",
+            rol = "Atacante",
+            edad = 26,
+            nivel = 100,
+            imagen = R.drawable.images
+        )
 
-            )
-            Text(
-                text = "Jugador",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f),
-                color = Color.White
-            )
-            Text(
-                text = "Rol",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f),
-                color = Color.White
-            )
-            Text(
-                text = "Edad",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f),
-                color = Color.White
-            )
-            Text(
-                text = "Nivel",
-                textAlign = TextAlign.Center,
-                modifier = Modifier.weight(1f),
-                color = Color.White
-            )
-        }
-        Column(verticalArrangement = Arrangement.spacedBy(50.dp)) {
-            Jugador("ivan", "atacante", 26, 100, R.drawable.images)
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 12.dp),
+            thickness = 2.dp,
+            color = Separador
+        )
 
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 2.dp),
-                thickness = 2.dp,
-                color = Color.Blue
-            )
+        Jugador(
+            nombre = "Carlos",
+            rol = "Defensa",
+            edad = 23,
+            nivel = 78,
+            imagen = R.drawable.jesus1
+        )
 
-            Jugador("carlos", "defensa", 23, 78, R.drawable.jesus1)
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 12.dp),
+            thickness = 2.dp,
+            color = Separador
+        )
 
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical = 2.dp),
-                thickness = 2.dp,
-                color = Color.Blue            )
+        Jugador(
+            nombre = "Alex",
+            rol = "Mago",
+            edad = 22,
+            nivel = 82,
+            imagen = R.drawable.jesus2
+        )
 
-            Jugador("alex", "mago", 22, 82, R.drawable.jesus2)
+        HorizontalDivider(
+            modifier = Modifier.padding(vertical = 12.dp),
+            thickness = 2.dp,
+            color = Separador
+        )
 
-            HorizontalDivider(
-                modifier = Modifier.padding(vertical =2.dp),
-                thickness = 2.dp,
-                color = Color.Blue            )
-
-            Jugador("juan andres", "curandero", 21, 91, R.drawable.jesucristo)
-        }
+        Jugador(
+            nombre = "Juan Andres",
+            rol = "Curandero",
+            edad = 21,
+            nivel = 91,
+            imagen = R.drawable.jesucristo
+        )
     }
 }
 
@@ -140,61 +137,82 @@ fun Jugador(
 ) {
 
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(
+                color = FondoJugador,
+                shape = RoundedCornerShape(12.dp)
+            )
+            .padding(15.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
 
         Box(
-            modifier = Modifier.weight(1f),
             contentAlignment = Alignment.Center
         ) {
+
             Image(
                 painter = painterResource(imagen),
-                contentDescription = "Foto",
+                contentDescription = "Foto de $nombre",
                 modifier = Modifier
-                    .size(70.dp)
+                    .size(75.dp)
                     .clip(CircleShape),
                 contentScale = ContentScale.Crop
             )
         }
 
-        Text(
-            text = nombre,
-            fontWeight = FontWeight.Bold,
-            fontSize = 18.sp,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
+        Column(
+            modifier = Modifier
+                .padding(start = 20.dp)
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(5.dp)
+        ) {
 
-        Text(
-            text = rol,
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
+            Text(
+                text = nombre,
+                color = TextoPrincipal,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.Bold
+            )
 
-        Text(
-            text = edad.toString(),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
+            Text(
+                text = "Rol: $rol",
+                color = TextoSecundario,
+                fontSize = 14.sp
+            )
 
-        Text(
-            text = nivel.toString(),
-            textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f)
-        )
+            Text(
+                text = "Edad: $edad años",
+                color = TextoSecundario,
+                fontSize = 14.sp
+            )
+
+            Text(
+                text = "Nivel: $nivel",
+                color = Azul,
+                fontSize = 15.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun JugadorPreview() {
-    Jugador(
-        nombre = "Ivan",
-        rol = "Atacante",
-        edad = 26,
-        nivel = 100,
-        imagen = R.drawable.images
-    )
+
+    Box(
+        modifier = Modifier
+            .background(Fondo)
+            .padding(20.dp)
+    ) {
+
+        Jugador(
+            nombre = "Ivan",
+            rol = "Atacante",
+            edad = 26,
+            nivel = 100,
+            imagen = R.drawable.images
+        )
+    }
 }
